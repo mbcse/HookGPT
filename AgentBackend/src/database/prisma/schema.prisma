@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Session model to group messages and hook code
+model Session {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+  hookCode  HookCode?
+}
+
+// Message model for storing conversation messages
+model Message {
+  id        String   @id @default(uuid())
+  content   String
+  role      String   // "user" or "assistant"
+  createdAt DateTime @default(now())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+}
+
+// HookCode model for storing generated Uniswap v4 hooks
+model HookCode {
+  id                   String   @id @default(uuid())
+  name                 String   // Name of the hook
+  description          String   // Brief description of what the hook does
+  code                 String   // Complete Solidity code for the Uniswap v4 hook
+  gasEstimate          String?  // Estimated gas cost for the hook operations
+  implementationDetails Json?    // Array of implementation details
+  testCode             String?  // Optional test code for the hook
+  examples             Json?    // Array of usage examples
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  sessionId            String   @unique
+  session              Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
