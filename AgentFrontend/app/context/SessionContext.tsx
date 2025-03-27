@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Message } from '../types/agent';
+import { config } from '../config';
 
 interface SessionContextType {
   sessionId: string | null;
@@ -44,7 +45,7 @@ export const SessionProvider = ({ children }: SessionProviderProps) => {
     setSessionError(null);
     
     try {
-      const response = await fetch('http://localhost:3000/hooks/init-session', {
+      const response = await fetch(config.backendEndpoint + '/hooks/init-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

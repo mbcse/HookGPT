@@ -5,6 +5,7 @@ import { useChat } from 'ai/react';
 import { Loader2, XCircle, AlertTriangle, ArrowRight } from 'lucide-react';
 import { useSession } from '../context/SessionContext';
 import { Message, StreamChunk, UniswapHookData } from '../types/agent';
+import { config } from '../config';
 
 // CSS for typing cursor animation
 const typingCursorStyle = {
@@ -18,7 +19,7 @@ const typingCursorStyle = {
 
 
 // API endpoint for generating hook code
-const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT || 'http://localhost:3000/hooks/generate-hook-code';
+const API_ENDPOINT = config.backendEndpoint + '/hooks/generate-hook-code';
 
 interface ChatComponentProps {
   onStreamingChange: (isStreaming: boolean) => void;
