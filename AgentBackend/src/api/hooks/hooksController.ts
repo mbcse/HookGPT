@@ -25,11 +25,11 @@ const vectorStoreConfig: VectorStoreConfig = {
   connectionConfig: {
     postgresConnectionOptions: {
       type: "postgres",
-      host: "127.0.0.1",
-      port: 5432,
-      user: "test",
-      password: "test",
-      database: "api",
+      host: process.env.DB_HOST || "127.0.0.1",
+      port: parseInt(process.env.DB_PORT || "5432"),
+      user: process.env.DB_USER || "test",
+      password: process.env.DB_PASSWORD || "test",
+      database: process.env.DB_NAME || "api",
     },
     tableName: "uniswap_hooks",
   },
