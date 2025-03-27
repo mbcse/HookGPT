@@ -17,6 +17,13 @@ const typingCursorStyle = {
   animation: 'blink 0.8s step-end infinite',
 };
 
+// Note about server performance
+const PerformanceNote = () => (
+  <div className="bg-amber-800/50 text-amber-200 p-3 rounded-lg mb-4 text-sm text-center">
+    <AlertTriangle className="inline-block w-4 h-4 mr-1 mb-1" />
+    This service is hosted on a server with minimal resources and with rate limits to avoid abuse. Responses may take longer than expected.
+  </div>
+);
 
 // API endpoint for generating hook code
 const API_ENDPOINT = config.backendEndpoint + '/hooks/generate-hook-code';
@@ -628,6 +635,9 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
   return (
     <div className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto p-4">
+        {/* Performance Note */}
+        <PerformanceNote />
+        
         {/* Welcome Message */}
         {customMessages.length === 0 && !isStreamingReply && (
           <div className="flex flex-col items-center justify-center h-full text-center px-4">
