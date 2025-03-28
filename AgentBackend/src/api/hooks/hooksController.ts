@@ -30,6 +30,9 @@ const vectorStoreConfig: VectorStoreConfig = {
       user: process.env.DB_USER || "test",
       password: process.env.DB_PASSWORD || "test",
       database: process.env.DB_NAME || "api",
+      ssl: {
+        rejectUnauthorized: false // Set to true in production if you have valid certificates
+      }
     },
     tableName: "uniswap_hooks",
   },
