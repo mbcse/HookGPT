@@ -18,7 +18,7 @@ const typingCursorStyle = {
 
 
 // API endpoint for generating hook code
-const API_ENDPOINT = 'http://localhost:3000/hooks/generate-hook-code';
+const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT || 'http://localhost:3000/hooks/generate-hook-code';
 
 interface ChatComponentProps {
   onStreamingChange: (isStreaming: boolean) => void;
